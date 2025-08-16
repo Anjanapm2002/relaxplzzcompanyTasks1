@@ -1,6 +1,8 @@
 import React from 'react'
-
-const Places = () => {
+import './Places.css'
+import { Modal } from 'bootstrap'
+// step4
+const Places = ({ togglePlace, selectedPlaces }) => {
   const places = [
     { name: "Forest Waterfall", img: "forest-waterfall.jpg" },
     { name: "African Savanna", img: "african-savanna.jpg" },
@@ -17,13 +19,15 @@ const Places = () => {
 
       <div className='row'>
         {/* card 1 */}
-        {places.map((place) => (
-          <div className="col-md-3 col-sm-6 mb-4">
-            <div className="card h-100 position-relative">
-              <img src={`/images/${place.img}`} alt={place.name} className="card-img-top" />
+        {places.map((place, index) => (
+          <div key={index} className="col-md-3 col-sm-6 mb-4">
+            <div className="card h-100 position-relative"> 
+              {/* step5 */}
+              <img src={`/images/${place.img}`} alt={place.name} className={`card-img-top ${selectedPlaces.includes(place) ? "border border-primary" : ""}`} onClick={() => togglePlace(place)}
+              style={{ cursor: "pointer" }} />
               {/* Overlay text at bottom-right */}
-              <div className="position-absolute bottom-0 end-0 m-2 px-2 py-1 bg-warning rounded text-white fs-6 " style={{ fontWeight: '500' }}>
-                Forest Waterfall
+              <div className="position-absolute bottom-0 end-0 m-2 px-2 py-1 bg-warning rounded text-white fs-6">
+                {place.name}
               </div>
             </div>
           </div>
@@ -31,8 +35,8 @@ const Places = () => {
         ))}
 
       </div>
-
     </div>
+    
   )
 }
 
